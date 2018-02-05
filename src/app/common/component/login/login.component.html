@@ -1,0 +1,31 @@
+<mat-toolbar mat-dialog-title color="primary">
+ Login   <span class="flex-spacer"></span>
+ <button mat-button mat-dialog-close>&times;</button>
+</mat-toolbar>
+<p>{{user | json}}</p>
+ <form novalidate #loginForm="ngForm" (ngSubmit)="onSubmit()" >
+   <p>
+    <mat-input-container dividerColor="{{username.invalid && !username.pristine ? 'warn' : 'primary'}}">
+      <input matInput placeholder="username" type="text" name="username" [(ngModel)]="user.username" #username="ngModel" required />
+      <mat-hint>
+          <span [hidden]="username.pristine">
+          <span [hidden]="!username.errors?.required">username is required</span>
+          </span>
+        </mat-hint>
+    </mat-input-container>
+     <mat-input-container dividerColor="{{password.invalid && !password.pristine ? 'warn' : 'primary'}}">
+        <input matInput placeholder="password" type="text" name="password" [(ngModel)]="user.password" #password="ngModel"  required />
+        <mat-hint>
+            <span [hidden]="password.pristine">
+            <span [hidden]="!password.errors?.required">password is required</span>
+            </span>
+          </mat-hint>
+      </mat-input-container>
+       <mat-checkbox name="remember" [(ngModel)]="user.remember">Remember Me</mat-checkbox>
+   </p>
+   <mat-dialog-actions>
+      <span class="flex-spacer"></span>
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button type="submit" [disabled]="loginForm.form.invalid" mat-button class="background-primary text-floral-white" >Login</button>
+    </mat-dialog-actions>
+ </form>
